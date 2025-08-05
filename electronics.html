@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Electronics - MyShop</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #f2f2f2;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    header h1 {
+      font-size: 1.8em;
+    }
+
+    nav a {
+      color: #ccc;
+      margin-left: 15px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #1abc9c;
+    }
+
+    #search {
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      width: 220px;
+      margin-top: 10px;
+    }
+
+    main {
+      padding: 20px;
+      animation: slideIn 0.6s ease-out;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: #1abc9c;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      background: #1f1f1f;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: popIn 0.5s ease;
+      box-shadow: 0 0 5px rgba(0, 255, 200, 0.05);
+    }
+
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.2);
+    }
+
+    .product img {
+      width: 100%;
+      height: 140px;
+      object-fit: contain;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background: #333;
+    }
+
+    .product-name {
+      font-weight: bold;
+      font-size: 1em;
+      margin-bottom: 5px;
+      color: #eee;
+    }
+
+    .price {
+      color: #1abc9c;
+      font-size: 1.1em;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      #search {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MyShop</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="electronics.html">Electronics</a>
+      <a href="clothing.html">Clothing</a>
+    </nav>
+    <input type="text" id="search" placeholder="Search products..." />
+  </header>
+
+  <main>
+    <h2>Electronics</h2>
+    <div class="product-list" id="product-list"></div>
+  </main>
+
+  <script>
+    // Add your image URLs in the 'img' property below (leave empty for placeholder)
+    const products = [
+      { name: "Laptop", price: 999, img: "https://i5.walmartimages.com/seo/HP-15-6-FHD-Laptop-Intel-Core-i5-1135G7-8GB-RAM-256GB-SSD-Silver-Windows-11-Home-15-dy2795wm_3aa79615-29ab-4859-8348-9bd71971f50d.bcbf2f92accb13e86d12b2c9734c2320.jpeg" },
+      { name: "Smartphone", price: 599, img: "https://i0.wp.com/chinthanagsm.lk/wp-content/uploads/2022/09/14-3.jpg?fit=600%2C600&ssl=1" },
+      { name: "Headphones", price: 149, img: "https://s3-ap-southeast-1.amazonaws.com/media.cameralk.com/15125/1714661420_1824830.jpg" },
+      { name: "Smartwatch", price: 199, img: "https://celltronics.lk/wp-content/uploads/2024/01/Mibro-T2-Calling-Smart-Watch.jpg" },
+      { name: "Tablet", price: 399, img: "https://aceplusglobe.lk/wp-content/uploads/2024/05/ipad-pro-m4-13inch.webp" },
+      { name: "Camera", price: 549, img: "https://i5.walmartimages.com/seo/Canon-EOS-5D-Mark-IV-DSLR-Camera-with-24-105mm-F-4L-II-Lens_761467b2-8369-4e43-bf35-7081f5fd4b87.5eb0e5b2f2866d05f02de5638f409d7b.jpeg" },
+      { name: "Bluetooth Speaker", price: 89, img: "https://www.sencor.com/getmedia/6770caad-d0be-4d0d-b5f0-01bbc4c1c555/35059169.jpg.aspx?width=2100&height=2100&ext=.jpg" },
+      { name: "Gaming Console", price: 499, img: "https://i5.walmartimages.com/seo/PlayStation-5-PS5-Console-Disc-Version_594285d5-4251-485f-b7d5-25e042253e75.89174ac515a7f3cd24f493f899b404eb.jpeg" },
+      { name: "Wireless Mouse", price: 29, img: "https://m.media-amazon.com/images/I/71L-flqtTwL._AC_SL1500_.jpg" },
+      { name: "Keyboard", price: 59, img: "https://hyperx.com/cdn/shop/files/hyperx_alloy_rise_75_wireless_us_91y91aa_23aba_main_1.jpg?v=1734190103" },
+      { name: "Monitor", price: 199, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1TVL974Mp7hYEAMKqSZAUtXxCt4fcubaG8Q&s" },
+      { name: "External Hard Drive", price: 129, img: "https://www.digitaltrends.com/wp-content/uploads/2017/08/Samsung-T5-SSD-review-angle.jpg?resize=1200%2C720&p=1" },
+      { name: "Webcam", price: 69, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5AxKgEbqbmSHohbFWgOHrSzuiLfpjeO3Jhw&s" },
+      { name: "VR Headset", price: 399, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwQNkulNkSydLRahYl3jxtVUsKdC_M2v96qQ&s" },
+      { name: "Router", price: 99, img: "https://m.media-amazon.com/images/I/71+TXCO7WhL._AC_SL1500_.jpg" },
+      { name: "Projector", price: 299, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSDuqDtTsC2diPF5GOMGA3DQPFvHakw-R4Aw&s" },
+      { name: "Drone", price: 599, img: "https://electrobotic.in/cdn/shop/files/garuda-nabhyan-pro-drone-budget-drone.jpg?v=1734673753" },
+      { name: "Smart Home Hub", price: 149, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM4TRNpZsV9jth5r_FQadplP_HysWSYg4Jig&s" },
+      { name: "Electric Scooter", price: 799, img: "https://www.bigw.com.au/medias/sys_master/images/images/hb4/hdc/98715263303710.jpg" },
+      { name: "Fitness Tracker", price: 129, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEvIbZvxCF6xWPJLr50iCIikTwrHF6gi4Z-Q&s" }
+    ];
+
+    const productList = document.getElementById("product-list");
+    const searchInput = document.getElementById("search");
+
+    function renderProducts(filter = "") {
+      productList.innerHTML = "";
+      const filtered = products.filter(p =>
+        p.name.toLowerCase().includes(filter.toLowerCase())
+      );
+      filtered.forEach(p => {
+        const imgSrc = p.img.trim() !== "" ? p.img : `https://via.placeholder.com/150/1abc9c/ffffff?text=${encodeURIComponent(p.name)}`;
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <img src="${imgSrc}" alt="${p.name}" />
+          <div class="product-name">${p.name}</div>
+          <div class="price">$${p.price}</div>
+        `;
+        productList.appendChild(div);
+      });
+    }
+
+    searchInput.addEventListener("input", e => renderProducts(e.target.value));
+    renderProducts();
+  </script>
+</body>
+</html>
